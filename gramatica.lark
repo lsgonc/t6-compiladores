@@ -1,12 +1,6 @@
 start: playlist
 
-playlist: "PLAYLIST" ESCAPED_STRING
-          "DURACAO_MAXIMA" INT "min"
-          "GENERO" ESCAPED_STRING
-          "ANO" INT
-          "FAIXA_ETARIA" faixa_etaria
-          descricao?
-          musicas
+playlist: "PLAYLIST" ESCAPED_STRING "DURACAO_MAXIMA" INT "min" "GENERO" ESCAPED_STRING "ANO" INT "FAIXA_ETARIA" faixa_etaria descricao? musicas
 
 descricao: "DESCRICAO" ESCAPED_STRING
 
@@ -14,9 +8,7 @@ faixa_etaria: "LIVRE" | INT    -> idade
 
 musicas: (musica)+
 
-musica: "MUSICA" ESCAPED_STRING
-        "AUTOR" ESCAPED_STRING
-        "DURACAO" INT "min"
+musica: "MUSICA" ESCAPED_STRING "AUTOR" ESCAPED_STRING "DURACAO" INT "min"
 
 %import common.ESCAPED_STRING
 %import common.INT

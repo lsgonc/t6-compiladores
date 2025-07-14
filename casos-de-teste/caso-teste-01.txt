@@ -1,0 +1,7 @@
+PLAYLIST "Minha Playlist"
+DURACAO_MAXIMA 120 min
+GENERO "Rock"
+ANO 2023
+FAIXA_ETARIA LIVRE
+DESCRICAO "Uma playlist de rock clássico"
+MUSICA "Bohemian Rhapsody" AUTOR "Queen" DURACAO 6 min
