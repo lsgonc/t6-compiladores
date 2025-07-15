@@ -1,7 +1,6 @@
-PLAYLIST "Minha Playlist"
-DURACAO_MAXIMA 120 min
-GENERO "Rock"
-ANO 2023
-FAIXA_ETARIA LIVRE
-DESCRICAO "Uma playlist de rock clássico"
-MUSICA "Bohemian Rhapsody" AUTOR "Queen" DURACAO 6 min
+PLAYLIST "Rock dos Anos 90" DURACAO_MAXIMA 120 min GENERO "Rock Alternativo" ANO 1995 FAIXA_ETARIA LIVRE
+DESCRICAO "Uma coleção com o melhor do grunge e rock alternativo da década de 90."
+
+MUSICA "Smells Like Teen Spirit" AUTOR "Nirvana" DURACAO 5 min
+MUSICA "Black" AUTOR "Pearl Jam" DURACAO 5 min
+MUSICA "Creep" AUTOR "Radiohead" DURACAO 4 min

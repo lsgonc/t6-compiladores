@@ -1,4 +1,4 @@
-from lark import Transformer, v_args
+from lark import Transformer, v_args, Token
 
 @v_args(inline=True)    # Faz com que os filhos das regras sejam passados diretamente
 class PlaylistTransformer(Transformer):
@@ -47,7 +47,9 @@ class PlaylistTransformer(Transformer):
     def descricao(self, text):
         return text
 
-    def idade(self, age): # Regra renomeada de faixa_etaria para idade no grammar.lark
+    def idade(self, age):
+        if isinstance(age, Token):
+            return age.value
         return age
 
     def musicas(self, *musica_list):

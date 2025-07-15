@@ -1,0 +1,4 @@
+PLAYLIST "Erros Lógicos" DURACAO_MAXIMA 10 min GENERO "Variado" ANO 2099 FAIXA_ETARIA 25
+
+MUSICA "Música Super Longa" AUTOR "Compositor A" DURACAO 11 min
+MUSICA "Música com Duração Negativa" AUTOR "Compositor B" DURACAO -5 min
