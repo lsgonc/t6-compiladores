@@ -1,8 +1,6 @@
-PLAYLIST "Test Playlist"
-DURACAO_MAXIMA 10min
-GENERO "Pop"
-ANO 2025
-FAIXA_ETARIA LIVRE
+PLAYLIST "Playlist com Problemas" DURACAO_MAXIMA 60 min GENERO "Eletrônica" ANO 2021 FAIXA_ETARIA 12
 
-MUSICA "Song A" AUTOR "Artist" DURACAO 6min
-MUSICA "Song A" AUTOR "Artist" DURACAO 5min
+# Esta linha é um comentário inválido, pois o caractere '#' não é reconhecido.
+
+MUSICA "Around the World" AUTOR "Daft Punk" DURACAO 7 min
+MUSICA "Strobe" AUTOR "deadmau5" DURACAO 10 min
