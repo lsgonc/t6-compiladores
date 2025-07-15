@@ -1,67 +1,89 @@
-from lark import Transformer, v_args
+from lark import Transformer, v_args, Token
 
-@v_args(inline=True)    # Faz com que os filhos das regras sejam passados diretamente
+# Decorador que permite passar os argumentos inline (sem lista)
+@v_args(inline=True)
 class PlaylistTransformer(Transformer):
     def __init__(self):
-        self.current_playlist_data = {} # Armazena dados da playlist atual para validações
-        self.errors = [] # Lista para coletar erros semânticos
+        # Lista para armazenar erros semânticos detectados durante a transformação
+        self.errors = []
 
-    # --- Terminais (Tokens) ---
-    ESCAPED_STRING = lambda self, s: s[1:-1].replace('\\"', '"') # Remove aspas e trata escapes
+    # === Terminais (Tokens) ===
+    # Transforma uma string com aspas escapadas para seu valor literal
+    ESCAPED_STRING = lambda self, s: s[1:-1].replace('\\"', '"')
+
+    # Converte o token INT em um número inteiro
     INT = lambda self, n: int(n)
 
-    # --- Regras Sintáticas ---
-
+    # === Regras Sintáticas (Não-terminais) ===
+    # Regra inicial da gramática: retorna o resultado ou os erros detectados
     def start(self, playlist):
-        # A regra 'start' apenas passa a playlist
-        return playlist
+        if self.errors:
+            return {"status": "falha", "erros": self.errors}
+        return {"status": "sucesso", "playlist": playlist}
 
-    def playlist(self, name, max_duration, genre, year, age_rating, description, musicas):
-        self.current_playlist_data = {
-            "name": name,
-            "max_duration": max_duration,
-            "genre": genre,
-            "year": year,
-            "age_rating": age_rating,
-            "description": description,
-            "musicas": musicas,
-            "total_duration": sum(m['duration'] for m in musicas) # Soma as durações das músicas
+    # Trata o cabeçalho da playlist: nome, duração máxima, gênero, ano, faixa etária
+    def playlist_cabecalho(self, nome, duracao_max, genero, ano, faixa_etaria):
+        return {
+            "nome": nome,
+            "duracao_max": duracao_max,
+            "genero": genero,
+            "ano": ano,
+            "faixa_etaria": faixa_etaria,
         }
 
-        # --- Validações Semânticas para Playlist ---
+    # Constrói a estrutura principal da playlist, validando regras semânticas
+    def playlist(self, cabecalho, descricao, *musicas):
+        lista_musicas = list(musicas)
+        
+        # Monta o dicionário final da playlist com base nos dados capturados
+        playlist_final = {
+            "nome": cabecalho["nome"],
+            "duracao_maxima": cabecalho["duracao_max"],
+            "genero": cabecalho["genero"],
+            "ano": cabecalho["ano"],
+            "faixa_etaria": cabecalho["faixa_etaria"],
+            "descricao": descricao if descricao is not None else "", 
+            "musicas": lista_musicas,
+            "duracao_total": sum(m['duracao'] for m in lista_musicas)
+        }
 
-        if max_duration <= 0:
-            self.errors.append(f"Erro Semântico: Duração máxima da playlist '{name}' deve ser positiva.")
+        # === Validações Semânticas para a Playlist ===
+        # Verifica se a duração máxima é positiva
+        if playlist_final["duracao_maxima"] <= 0:
+            self.errors.append(f"Erro Semântico: Duração máxima da playlist '{playlist_final['nome']}' deve ser positiva.")
 
-        if year > 2025: # Ajuste o ano conforme a necessidade
-            self.errors.append(f"Erro Semântico: Ano da playlist '{name}' ({year}) não pode ser no futuro.")
+        # Verifica se o ano da playlist não está no futuro
+        if playlist_final["ano"] > 2025: 
+            self.errors.append(f"Erro Semântico: Ano da playlist '{playlist_final['nome']}' ({playlist_final['ano']}) não pode ser no futuro.")
 
-        if isinstance(age_rating, int) and (age_rating < 0 or age_rating > 18):
-            self.errors.append(f"Erro Semântico: Faixa etária '{age_rating}' para '{name}' inválida. Deve ser LIVRE ou entre 0 e 18.")
+        # Validação da faixa etária: deve ser "LIVRE" ou um valor de 0 a 18
+        faixa = playlist_final["faixa_etaria"]
+        if isinstance(faixa, int) and not (0 <= faixa <= 18):
+            self.errors.append(f"Erro Semântico: Faixa etária '{faixa}' para '{playlist_final['nome']}' inválida. Deve ser LIVRE ou entre 0 e 18.")
 
-        if self.current_playlist_data["total_duration"] > max_duration:
-             self.errors.append(f"Erro Semântico: Duração total das músicas ({self.current_playlist_data['total_duration']} min) excede a duração máxima da playlist '{name}' ({max_duration} min).")
+        # Validação da duração total das músicas em relação à duração máxima
+        if playlist_final["duracao_total"] > playlist_final["duracao_maxima"]:
+            self.errors.append(f"Erro Semântico: Duração total das músicas ({playlist_final['duracao_total']} min) excede a duração máxima da playlist '{playlist_final['nome']}' ({playlist_final['duracao_maxima']} min).")
 
-        return self.current_playlist_data
+        return playlist_final
 
-    def descricao(self, text):
-        return text
+    # Captura o texto da descrição da playlist
+    def descricao(self, texto):
+        return texto
 
-    def idade(self, age): # Regra renomeada de faixa_etaria para idade no grammar.lark
-        return age
+    # Trata a faixa etária, que pode ser um número (ex: 12) ou o token 'LIVRE'
+    def faixa_etaria(self, valor):
+        if isinstance(valor, Token) and valor.type == 'LIVRE':
+            return valor.value  
+        return valor 
 
-    def musicas(self, *musica_list):
-        # music_list é uma tupla de dicionários de músicas
-        return list(musica_list)
+    # Constrói o dicionário de uma música, com validação semântica da duração
+    def musica(self, titulo, autor, duracao):
+        if duracao <= 0:
+            self.errors.append(f"Erro Semântico: Duração da música '{titulo}' por '{autor}' ({duracao} min) deve ser positiva.")
 
-    def musica(self, title, author, duration):
-        # --- Validações Semânticas para Música ---
-        if duration <= 0:
-            self.errors.append(f"Erro Semântico: Duração da música '{title}' por '{author}' ({duration} min) deve ser positiva.")
-
-        # Retorna um dicionário para facilitar o acesso aos dados da música
         return {
-            "title": title,
-            "author": author,
-            "duration": duration
+            "titulo": titulo,
+            "autor": autor,
+            "duracao": duracao
         }
