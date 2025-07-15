@@ -14,7 +14,7 @@ class PlaylistTransformer(Transformer):
     # Converte o token INT em um número inteiro
     INT = lambda self, n: int(n)
 
-    # === Regras Sintáticas (Não-terminais) ===
+    # === Regras Sintáticas ===
     # Regra inicial da gramática: retorna o resultado ou os erros detectados
     def start(self, playlist):
         if self.errors:
