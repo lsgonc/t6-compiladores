@@ -1,14 +1,21 @@
 start: playlist
 
-playlist: "PLAYLIST" ESCAPED_STRING "DURACAO_MAXIMA" INT "min" "GENERO" ESCAPED_STRING "ANO" INT "FAIXA_ETARIA" faixa_etaria descricao? musicas
+playlist: playlist_cabecalho descricao? musica+
 
-descricao: "DESCRICAO" ESCAPED_STRING
+// Todos os metadados da playlist agrupados em uma única regra
+playlist_cabecalho: "PLAYLIST" nome:ESCAPED_STRING
+                    "DURACAO_MAXIMA" duracao_max:INT "min"
+                    "GENERO" genero:ESCAPED_STRING
+                    "ANO" ano:INT
+                    "FAIXA_ETARIA" faixa_etaria
 
-faixa_etaria: "LIVRE" | INT    -> idade
+descricao: "DESCRICAO" texto:ESCAPED_STRING
 
-musicas: (musica)+
+faixa_etaria: "LIVRE" | idade:INT
 
-musica: "MUSICA" ESCAPED_STRING "AUTOR" ESCAPED_STRING "DURACAO" INT "min"
+musica: "MUSICA" titulo:ESCAPED_STRING
+        "AUTOR" autor:ESCAPED_STRING
+        "DURACAO" duracao:INT "min"
 
 %import common.ESCAPED_STRING
 %import common.INT
