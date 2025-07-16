@@ -51,7 +51,7 @@ O projeto também inclui arquivos contendo casos de teste utilizados para valida
 - `caso-teste-01.txt` → Exemplo correto
 - `caso-teste-02.txt` → Exemplo com erros léxicos
 - `caso-teste-03.txt` → Exemplo com erros sintáticos
-- `caso-teste-04.txt` → Exemplo com erros semânticos
+- `caso-teste-[04-10].txt` → Exemplo com erros semânticos
 
 <br>
 
