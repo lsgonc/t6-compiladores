@@ -1,3 +1,2 @@
-PLAYLIST "Rock Clássico" DURACAO_MAXIMA 120 min GENERO "Rock" ANO 1980 FAIXA_ETARIA @ 
-DESCRICAO "Os maiores clássicos do rock."
-MUSICA "Bohemian Rhapsody" AUTOR "Queen" DURACAO 6 min
+PLAYLIST "Ordem Trocada" GENERO "MPB" DURACAO_MAXIMA 90 min ANO 2005 FAIXA_ETARIA 12
+MUSICA "Aquarela" AUTOR "Toquinho" DURACAO 4 min

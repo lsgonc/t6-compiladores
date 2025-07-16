@@ -18,9 +18,9 @@ def compile_playlist(input_string, source_filename="playlist"):
 
     try:
         # Análise Sintática (Parsing)
-        print("\nIniciando Análise Sintática...")
+        print("\nIniciando Análise...")
         tree = parser.parse(input_string)
-        print("Sucesso: Análise Sintática Concluída com Sucesso!")
+        print("Sucesso: Análise Concluída com Sucesso!")
         
         # Árvore sintática gerada:
         # print("Árvore Sintática (antes da transformação):")

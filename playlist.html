@@ -1,0 +1,134 @@
+
+        <!DOCTYPE html>
+        <html lang="pt-BR">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Playlist: Rock dos Anos 90</title>
+            
+        <style>
+            body {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                background-color: #f0f2f5;
+                color: #1c1e21;
+                margin: 0;
+                padding: 20px;
+            }
+            .container {
+                max-width: 900px;
+                margin: 0 auto;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+            }
+            h1 {
+                color: #232323;
+                border-bottom: 2px solid #efefef;
+                padding-bottom: 16px;
+            }
+            a {
+                text-decoration: none;
+                color: inherit;      
+            }
+            .description {
+                color: #8d8d8d;
+                line-height: 24px;
+                margin-bottom: 28px;
+            }
+            .music-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            .music-card {
+                background-color: #f9f9f9;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                overflow: hidden;
+                text-align: center;
+                transition: transform 0.2s, box-shadow 0.2s;
+                cursor: pointer;
+            }
+            .music-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            }
+            .album-art {
+                width: 100%;
+                height: 200px; 
+                object-fit: cover; 
+                display: block;
+            }
+            .placeholder-art {
+                width: 100%;
+                height: 200px;
+                background-color: #e0e0e0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #999;
+                font-size: 3em;
+                font-weight: bold;
+            }
+            .music-info {
+                padding: 16px;
+            }
+            .music-title {
+                font-weight: bold;
+                font-size: 1em;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 6px;
+            }
+            .music-author {
+                color: #606770;
+                font-size: 0.9em;
+            }
+        </style>
+        
+        </head>
+        <body>
+            <div class="container">
+                <h1>Rock dos Anos 90</h1>
+                <p class="description">Uma coleção com o melhor do grunge e rock alternativo da década de 90.</p>
+                <div class="music-grid">
+                    
+        <a href="https://www.youtube.com/results?search_query=Nirvana+Smells+Like+Teen+Spirit" target="_blank" rel="noopener noreferrer" class="music-card-link">
+            <div class="music-card" title="Nirvana - Smells Like Teen Spirit">
+                <div class="placeholder-art">?</div>
+                <div class="music-info">
+                    <div class="music-title">Smells Like Teen Spirit</div>
+                    <div class="music-author">Nirvana</div>
+                </div>
+            </div>
+        </a>
+        
+
+        <a href="https://www.youtube.com/results?search_query=Pearl+Jam+Black" target="_blank" rel="noopener noreferrer" class="music-card-link">
+            <div class="music-card" title="Pearl Jam - Black">
+                <div class="placeholder-art">?</div>
+                <div class="music-info">
+                    <div class="music-title">Black</div>
+                    <div class="music-author">Pearl Jam</div>
+                </div>
+            </div>
+        </a>
+        
+
+        <a href="https://www.youtube.com/results?search_query=Radiohead+Creep" target="_blank" rel="noopener noreferrer" class="music-card-link">
+            <div class="music-card" title="Radiohead - Creep">
+                <div class="placeholder-art">?</div>
+                <div class="music-info">
+                    <div class="music-title">Creep</div>
+                    <div class="music-author">Radiohead</div>
+                </div>
+            </div>
+        </a>
+        
+                </div>
+            </div>
+        </body>
+        </html>
+        
