@@ -15,7 +15,7 @@ class HtmlCodeGenerator:
         return """
         <style>
             body {
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
                 background-color: #f0f2f5;
                 color: #1c1e21;
                 margin: 0;
@@ -30,18 +30,18 @@ class HtmlCodeGenerator:
                 padding: 20px;
             }
             h1 {
-                color: #1877f2;
-                border-bottom: 2px solid #ddd;
-                padding-bottom: 10px;
+                color: #232323;
+                border-bottom: 2px solid #efefef;
+                padding-bottom: 16px;
             }
             a {
                 text-decoration: none;
                 color: inherit;      
             }
             .description {
-                color: #606770;
-                font-style: italic;
-                margin-bottom: 20px;
+                color: #8d8d8d;
+                line-height: 24px;
+                margin-bottom: 28px;
             }
             .music-grid {
                 display: grid;
