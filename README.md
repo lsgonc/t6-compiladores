@@ -56,9 +56,24 @@ O projeto também inclui arquivos contendo casos de teste utilizados para valida
 <br>
 
 ## 🛠 Guia de uso
+Antes de começar, certifique-se de que o **Python** está instalado em seu sistema.
+```
+python --version
+pytho3 --version
+```
+<br>
+
+Caso não possua, realize a instalação antes de prosseguir.
 
 ```bash
-git clone (https://github.com/lsgonc/t6-compiladores.git)
+# Clone o repositório
+git clone https://github.com/lsgonc/t6-compiladores.git
+
+# Acesse o diretório do projeto
 cd t6-compiladores
+
+# Instale as dependências
 pip install -r requirements.txt
+
+# Execute o programa com o arquivo de teste e o nome da playlist
 python main.py casos-de-teste/caso-teste-01.txt nome-da-playlist
