@@ -1,14 +1,12 @@
 from lark import Transformer, v_args, Token
 from urllib.parse import urlparse
 
-@v_args(inline=True) 
 class PlaylistTransformer(Transformer):
     def __init__(self):
         # Lista para acumular erros semânticos encontrados durante a transformação
         self.errors = []
 
     # === Terminais (Tokens) ===
-
     # Trata strings escapadas: remove as aspas externas e interpreta \" como "
     ESCAPED_STRING = lambda self, s: s[1:-1].replace('\\"', '"')
 
@@ -17,10 +15,18 @@ class PlaylistTransformer(Transformer):
 
     # === Regras Sintáticas ===
     def start(self, playlist):
-        # A regra 'start' apenas retorna o dicionário da playlist transformada
-        return playlist
+        return playlist[0]
 
-    def playlist(self, name, max_duration, genre, year, age_rating, description, musicas):
+    def playlist(self, items):
+        musicas = items[-1]
+        
+        # Verificamos se a descrição opcional está presente pelo número de itens.
+        if len(items) > 6:
+            name, max_duration, genre, year, age_rating, description, _ = items
+        else:
+            name, max_duration, genre, year, age_rating, _ = items
+            description = None
+            
         # === Validações Semânticas da Playlist ===
 
         # Valida se a duração máxima da playlist é positiva
@@ -96,8 +102,7 @@ class PlaylistTransformer(Transformer):
                         self.errors.append(
                             f"Aviso Semântico: Formato de capa inválido para a música '{musica.get('title')}'."
                         )
-
-        
+                        
         # Construção do dicionário
         playlist_data = {
             "name": name,
@@ -114,25 +119,28 @@ class PlaylistTransformer(Transformer):
 
     def descricao(self, text):
         # A descrição é uma string simples, já processada no terminal ESCAPED_STRING
-        return text
+        return text[0]
     
     def faixa_etaria(self, valor):
-        if isinstance(valor, Token):
+        # A regra que chama `faixa_etaria` não tem `v_args`, então recebe uma lista.
+        val = valor[0]
+        if isinstance(val, Token):
             # Se for um Token, seu valor é "LIVRE". Retornamos a string.
-            return valor.value
+            return val.value
         else:
             # Caso contrário, já é o inteiro que queremos.
-            return valor
+            return val
 
     def capa(self, image_source):
-        return image_source
+        return image_source[0]
     
+    @v_args(inline=True)
     def musicas(self, *musica_list):
         # Coleta a lista de músicas (cada uma já transformada em dicionário)
         return list(musica_list)
 
+    @v_args(inline=True)
     def musica(self, title, author, duration, capa=None):
-
         # === Validações Semânticas da Música ===
         # Verifica se a duração da música é positiva
         if duration <= 0:

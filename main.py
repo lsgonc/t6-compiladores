@@ -33,9 +33,9 @@ def compile_playlist(input_string, source_filename="playlist"):
 
         # Verificação de Erros Semânticos
         if transformer.errors:
-            print("\n⚠️ Erros Semânticos Encontrados")
+            print("\n⚠️  Erros Semânticos Encontrados")
             for error in transformer.errors:
-                print(f"- {error}")
+                print(f"{error}")
             return None, transformer.errors
         
         # FASE DE GERAÇÃO DE CÓDIGO
