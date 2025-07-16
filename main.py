@@ -1,5 +1,6 @@
 from parser import create_playlist_parser
 from transformer import PlaylistTransformer
+import sys
 import json  # Para saída formatada em JSON
 
 def compile_playlist(input_string):
@@ -61,42 +62,23 @@ def compile_playlist(input_string):
 
 # Execução direta do script
 if __name__ == "__main__":
+    # Verifica se um nome de arquivo foi passado como argumento na linha de comando
+    if len(sys.argv) > 1:
+        # Pega o nome do arquivo do primeiro argumento (índice 1)
+        filepath = sys.argv[1]
 
-    # Teste 1: Entrada Válida
-    print("COMPILANDO ENTRADA VÁLIDA")
-    valid_input = """
-    PLAYLIST "Minha Playlist Favorita" DURACAO_MAXIMA 120 min GENERO "Rock" ANO 2023 FAIXA_ETARIA LIVRE
-    DESCRICAO "Uma coleção de rock clássico e moderno."
-    MUSICA "Stairway to Heaven" AUTOR "Led Zeppelin" DURACAO 8 min
-    MUSICA "Bohemian Rhapsody" AUTOR "Queen" DURACAO 6 min
-    MUSICA "Hotel California" AUTOR "Eagles" DURACAO 6 min
-    """
-    compiled_data, errors = compile_playlist(valid_input)
-    print("\n" + "="*40 + "\n")
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                # Lê todo o conteúdo do arquivo
+                input_code = f.read()
+            
+            # Chama o compilador com o conteúdo do arquivo
+            compile_playlist(input_code)
 
-    # Teste 2: Erros Semânticos (ano no futuro, faixa etária inválida, duração negativa)
-    print("COMPILANDO ENTRADA COM ERROS SEMÂNTICOS")
-    invalid_input_semantic = """
-    PLAYLIST "Playlist Problemática" DURACAO_MAXIMA 10 min GENERO "Pop" ANO 2030 FAIXA_ETARIA 20
-    MUSICA "Música Longa" AUTOR "Artista X" DURACAO 15 min
-    MUSICA "Música Curta" AUTOR "Artista Y" DURACAO 0 min
-    """
-    compiled_data_invalid, errors_invalid = compile_playlist(invalid_input_semantic)
-    print("\n" + "="*40 + "\n")
+        except FileNotFoundError:
+            print(f"❌ Erro: Arquivo não encontrado em '{filepath}'")
+        except Exception as e:
+            print(f"❌ Erro ao ler o arquivo: {e}")
 
-    # Teste 3: Erro Sintático - falta do token 'min'
-    print("COMPILANDO ENTRADA COM ERRO SINTÁTICO (FALTA 'min')")
-    invalid_input_syntax_missing_min = """
-    PLAYLIST "Playlist Sintaxe Errada" DURACAO_MAXIMA 60 min GENERO "Jazz" ANO 2024 FAIXA_ETARIA LIVRE
-    MUSICA "Alguma Coisa" AUTOR "Alguém" DURACAO 4
-    """  # Falta o token 'min' após o número 4
-    compiled_data_syntax_missing_min, errors_syntax_missing_min = compile_playlist(invalid_input_syntax_missing_min)
-    print("\n" + "="*40 + "\n")
-
-    # Teste 4: Erro Sintático - token inesperado (BLABLA não é reconhecido)
-    print("COMPILANDO ENTRADA COM ERRO SINTÁTICO (TOKEN INESPERADO)")
-    invalid_input_syntax_unexpected_token = """
-    PLAYLIST "Playlist Ruim" DURACAO_MAXIMA 60 min GENERO "Rock" ANO 2024 FAIXA_ETARIA LIVRE
-    BLABLA "Música Inesperada" AUTOR "Alguém" DURACAO 5 min
-    """  # 'BLABLA' não está definido na gramática
-    compiled_data_syntax_unexpected_token, errors_syntax_unexpected_token = compile_playlist(invalid_input_syntax_unexpected_token)
+    else:
+        print("Insira um arquivo de texto: python main.py <caminho_para_o_arquivo.txt>")
