@@ -13,7 +13,10 @@ faixa_etaria: LIVRE_TOKEN | INT
 musicas: (musica)+
 
 // Define a estrutura de uma música na playlist
-musica: "MUSICA" ESCAPED_STRING "AUTOR" ESCAPED_STRING "DURACAO" INT "min"
+musica: "MUSICA" ESCAPED_STRING "AUTOR" ESCAPED_STRING "DURACAO" INT "min" capa?
+
+// Imagem para a capa da música
+capa: "CAPA" ESCAPED_STRING
 
 // Define o token LIVRE_TOKEN explicitamente
 LIVRE_TOKEN: "LIVRE"

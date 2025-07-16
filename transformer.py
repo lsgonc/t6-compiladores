@@ -74,11 +74,14 @@ class PlaylistTransformer(Transformer):
             # Caso contrário, já é o inteiro que queremos.
             return valor
 
+    def capa(self, image_source):
+        return image_source
+    
     def musicas(self, *musica_list):
         # Coleta a lista de músicas (cada uma já transformada em dicionário)
         return list(musica_list)
 
-    def musica(self, title, author, duration):
+    def musica(self, title, author, duration, capa=None):
 
         # === Validações Semânticas da Música ===
         # Verifica se a duração da música é positiva
@@ -91,5 +94,6 @@ class PlaylistTransformer(Transformer):
         return {
             "title": title,
             "author": author,
-            "duration": duration
+            "duration": duration,
+            "image_source": capa 
         }
