@@ -4,8 +4,6 @@ from urllib.parse import urlparse
 @v_args(inline=True) 
 class PlaylistTransformer(Transformer):
     def __init__(self):
-        # Armazena os dados da playlist sendo processada (usado para validações cruzadas)
-        self.current_playlist_data = {}
         # Lista para acumular erros semânticos encontrados durante a transformação
         self.errors = []
 
@@ -23,18 +21,6 @@ class PlaylistTransformer(Transformer):
         return playlist
 
     def playlist(self, name, max_duration, genre, year, age_rating, description, musicas):
-        # Monta o dicionário da playlist com todos os campos coletados
-        self.current_playlist_data = {
-            "name": name,
-            "max_duration": max_duration,
-            "genre": genre,
-            "year": year,
-            "age_rating": age_rating,
-            "description": description,
-            "musicas": musicas,
-            "total_duration": sum(m['duration'] for m in musicas) 
-        }
-
         # === Validações Semânticas da Playlist ===
 
         # Valida se a duração máxima da playlist é positiva
@@ -55,12 +41,6 @@ class PlaylistTransformer(Transformer):
                 f"Erro Semântico: Faixa etária '{age_rating}' para '{name}' inválida. Deve ser 'LIVRE' ou entre 0 e 18."
             )
 
-        # Valida se a soma das músicas excede o tempo máximo da playlist
-        if self.current_playlist_data["total_duration"] > max_duration:
-            self.errors.append(
-                f"Erro Semântico: Duração total das músicas ({self.current_playlist_data['total_duration']} min) excede a duração máxima da playlist '{name}' ({max_duration} min)."
-            )
-
         # Valida se o nome da playlist é válido
         if not name.strip():
             self.errors.append(
@@ -73,40 +53,64 @@ class PlaylistTransformer(Transformer):
                 f"Aviso Semântico: A descrição da playlist '{name}' é muito longa ({len(description)} caracteres). Considere resumi-la."
             )
 
-        # Validação de duplicidade de músicas
-        seen_songs = set()
-        for musica in musicas:
-            # Cria um identificador único para a música (título e autor em minúsculas)
-            song_id = (musica['title'].lower(), musica['author'].lower())
-            if song_id in seen_songs:
+        # Validações complexas que dependem de dados das músicas
+        total_duration = 0
+        if isinstance(musicas, list):
+            # Calcula a duração total de forma segura
+            total_duration = sum(m.get('duration', 0) for m in musicas if isinstance(m, dict))
+
+            if total_duration > max_duration:
                 self.errors.append(
-                    f"Erro Semântico: A música '{musica['title']}' por '{musica['author']}' está duplicada na playlist '{name}'."
+                    f"Erro Semântico: Duração total das músicas ({total_duration} min) excede a duração máxima da playlist '{name}' ({max_duration} min)."
                 )
-            seen_songs.add(song_id)
-            
-        # Validação de formato de URL/Caminho da Capa (em cada música)
-        for musica in musicas:
-            image_source = musica.get('image_source')
-            if image_source: # Apenas se a capa foi fornecida
-                try:
-                    # Tenta analisar como uma URL
-                    result = urlparse(image_source)
-                    # Uma URL válida deve ter um 'scheme' (http, https) e um 'netloc' (o domínio)
-                    is_url = all([result.scheme, result.netloc])
-                    # Um caminho de arquivo comum não terá 'scheme' ou 'netloc'
-                    is_path = not result.scheme and not result.netloc
 
-                    if not is_url and not is_path:
-                        # Se não for nem uma URL bem formada nem um caminho simples, pode estar errado.
-                        self.errors.append(
-                            f"Aviso Semântico: A capa '{image_source}' para a música '{musica['title']}' não parece ser uma URL válida ou um caminho de arquivo."
-                        )
-                except ValueError:
+            # Validação de duplicidade e de capas
+            seen_songs = set()
+            for musica in musicas:
+                if not isinstance(musica, dict):
+                    continue
+                
+                # Validação de duplicidade
+                title = musica.get('title', '').lower()
+                author = musica.get('author', '').lower()
+                song_id = (title, author)
+
+                if song_id in seen_songs:
                     self.errors.append(
-                        f"Aviso Semântico: Formato de capa inválido para a música '{musica['title']}'."
+                        f"Erro Semântico: A música '{musica.get('title')}' por '{musica.get('author')}' está duplicada na playlist '{name}'."
                     )
+                seen_songs.add(song_id)
+                
+                # Validação de formato de URL/Caminho da Capa (segura)
+                image_source = musica.get('image_source')
+                if image_source:
+                    try:
+                        result = urlparse(image_source)
+                        is_url = all([result.scheme, result.netloc])
+                        is_path = not result.scheme and not result.netloc
+                        if not is_url and not is_path:
+                            self.errors.append(
+                                f"Aviso Semântico: A capa '{image_source}' para a música '{musica.get('title')}' não parece ser uma URL válida ou um caminho de arquivo."
+                            )
+                    except (ValueError, TypeError):
+                        self.errors.append(
+                            f"Aviso Semântico: Formato de capa inválido para a música '{musica.get('title')}'."
+                        )
 
-        return self.current_playlist_data
+        
+        # Construção do dicionário
+        playlist_data = {
+            "name": name,
+            "max_duration": max_duration,
+            "genre": genre,
+            "year": year,
+            "age_rating": age_rating,
+            "description": description,
+            "musicas": musicas,
+            "total_duration": total_duration 
+        }
+
+        return playlist_data
 
     def descricao(self, text):
         # A descrição é uma string simples, já processada no terminal ESCAPED_STRING
