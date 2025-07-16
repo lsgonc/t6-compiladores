@@ -1,0 +1,40 @@
+PLAYLIST "Rock Clássico: Hinos de Estádio"
+DURACAO_MAXIMA 45 min
+GENERO "Classic Rock"
+ANO 1985
+FAIXA_ETARIA 12
+DESCRICAO "Uma seleção épica com 7 dos maiores hinos do rock que marcaram gerações e lotaram estádios. Prepare-se para cantar junto do início ao fim!"
+
+MUSICA "Bohemian Rhapsody" 
+AUTOR "Queen" 
+DURACAO 6 min 
+CAPA "https://m.media-amazon.com/images/I/6115oSDqoCL.jpg"
+
+MUSICA "Stairway to Heaven" 
+AUTOR "Led Zeppelin" 
+DURACAO 8 min
+CAPA "https://i.pinimg.com/736x/f4/ba/64/f4ba64a67fd3c505bef0df38ca7e50d7.jpg"
+
+MUSICA "Hotel California" 
+AUTOR "Eagles" 
+DURACAO 6 min
+
+MUSICA "Livin' on a Prayer"
+AUTOR "Bon Jovi"
+DURACAO 4 min
+CAPA "https://upload.wikimedia.org/wikipedia/pt/2/2d/Bon_Jovi_-_Livin%27_on_a_Prayer.jpg"
+
+MUSICA "Sweet Child o' Mine"
+AUTOR "Guns N' Roses"
+DURACAO 6 min
+CAPA "https://i1.sndcdn.com/artworks-ieOjsRTB3MVVH9Vf-6bO8ew-t1080x1080.jpg"
+
+MUSICA "Back in Black"
+AUTOR "AC/DC"
+DURACAO 4 min
+CAPA "https://upload.wikimedia.org/wikipedia/commons/9/92/ACDC_Back_in_Black.png"
+
+MUSICA "Another Brick in the Wall, Pt. 2"
+AUTOR "Pink Floyd"
+DURACAO 4 min
+CAPA "https://i.scdn.co/image/ab67616d0000b2735d48e2f56d691f9a4e4b0bdf"

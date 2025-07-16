@@ -1,0 +1,178 @@
+
+        <!DOCTYPE html>
+        <html lang="pt-BR">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Playlist: Rock Clássico: Hinos de Estádio</title>
+            
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                background-color: #f0f2f5;
+                color: #1c1e21;
+                margin: 0;
+                padding: 20px;
+            }
+            .container {
+                max-width: 900px;
+                margin: 0 auto;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+            }
+            h1 {
+                color: #1877f2;
+                border-bottom: 2px solid #ddd;
+                padding-bottom: 10px;
+            }
+            a {
+                text-decoration: none;
+                color: inherit;      
+            }
+            .description {
+                color: #606770;
+                font-style: italic;
+                margin-bottom: 20px;
+            }
+            .music-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            .music-card {
+                background-color: #f9f9f9;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                overflow: hidden;
+                text-align: center;
+                transition: transform 0.2s, box-shadow 0.2s;
+                cursor: pointer;
+            }
+            .music-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            }
+            .album-art {
+                width: 100%;
+                height: 200px; 
+                object-fit: cover; 
+                display: block;
+            }
+            .placeholder-art {
+                width: 100%;
+                height: 200px;
+                background-color: #e0e0e0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #999;
+                font-size: 3em;
+                font-weight: bold;
+            }
+            .music-info {
+                padding: 16px;
+            }
+            .music-title {
+                font-weight: bold;
+                font-size: 1em;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 6px;
+            }
+            .music-author {
+                color: #606770;
+                font-size: 0.9em;
+            }
+        </style>
+        
+        </head>
+        <body>
+            <div class="container">
+                <h1>Rock Clássico: Hinos de Estádio</h1>
+                <p class="description">Uma seleção épica com 7 dos maiores hinos do rock que marcaram gerações e lotaram estádios. Prepare-se para cantar junto do início ao fim!</p>
+                <div class="music-grid">
+                    
+        <a href="https://www.youtube.com/results?search_query=Queen+Bohemian+Rhapsody" target="_blank" rel="noopener noreferrer" class="music-card-link">
+            <div class="music-card" title="Queen - Bohemian Rhapsody">
+                <img src="https://m.media-amazon.com/images/I/6115oSDqoCL.jpg" alt="Capa de Bohemian Rhapsody" class="album-art">
+                <div class="music-info">
+                    <div class="music-title">Bohemian Rhapsody</div>
+                    <div class="music-author">Queen</div>
+                </div>
+            </div>
+        </a>
+        
+
+        <a href="https://www.youtube.com/results?search_query=Led+Zeppelin+Stairway+to+Heaven" target="_blank" rel="noopener noreferrer" class="music-card-link">
+            <div class="music-card" title="Led Zeppelin - Stairway to Heaven">
+                <img src="https://i.pinimg.com/736x/f4/ba/64/f4ba64a67fd3c505bef0df38ca7e50d7.jpg" alt="Capa de Stairway to Heaven" class="album-art">
+                <div class="music-info">
+                    <div class="music-title">Stairway to Heaven</div>
+                    <div class="music-author">Led Zeppelin</div>
+                </div>
+            </div>
+        </a>
+        
+
+        <a href="https://www.youtube.com/results?search_query=Eagles+Hotel+California" target="_blank" rel="noopener noreferrer" class="music-card-link">
+            <div class="music-card" title="Eagles - Hotel California">
+                <div class="placeholder-art">?</div>
+                <div class="music-info">
+                    <div class="music-title">Hotel California</div>
+                    <div class="music-author">Eagles</div>
+                </div>
+            </div>
+        </a>
+        
+
+        <a href="https://www.youtube.com/results?search_query=Bon+Jovi+Livin%27+on+a+Prayer" target="_blank" rel="noopener noreferrer" class="music-card-link">
+            <div class="music-card" title="Bon Jovi - Livin' on a Prayer">
+                <img src="https://upload.wikimedia.org/wikipedia/pt/2/2d/Bon_Jovi_-_Livin%27_on_a_Prayer.jpg" alt="Capa de Livin' on a Prayer" class="album-art">
+                <div class="music-info">
+                    <div class="music-title">Livin' on a Prayer</div>
+                    <div class="music-author">Bon Jovi</div>
+                </div>
+            </div>
+        </a>
+        
+
+        <a href="https://www.youtube.com/results?search_query=Guns+N%27+Roses+Sweet+Child+o%27+Mine" target="_blank" rel="noopener noreferrer" class="music-card-link">
+            <div class="music-card" title="Guns N' Roses - Sweet Child o' Mine">
+                <img src="https://i1.sndcdn.com/artworks-ieOjsRTB3MVVH9Vf-6bO8ew-t1080x1080.jpg" alt="Capa de Sweet Child o' Mine" class="album-art">
+                <div class="music-info">
+                    <div class="music-title">Sweet Child o' Mine</div>
+                    <div class="music-author">Guns N' Roses</div>
+                </div>
+            </div>
+        </a>
+        
+
+        <a href="https://www.youtube.com/results?search_query=AC%2FDC+Back+in+Black" target="_blank" rel="noopener noreferrer" class="music-card-link">
+            <div class="music-card" title="AC/DC - Back in Black">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/ACDC_Back_in_Black.png" alt="Capa de Back in Black" class="album-art">
+                <div class="music-info">
+                    <div class="music-title">Back in Black</div>
+                    <div class="music-author">AC/DC</div>
+                </div>
+            </div>
+        </a>
+        
+
+        <a href="https://www.youtube.com/results?search_query=Pink+Floyd+Another+Brick+in+the+Wall%2C+Pt.+2" target="_blank" rel="noopener noreferrer" class="music-card-link">
+            <div class="music-card" title="Pink Floyd - Another Brick in the Wall, Pt. 2">
+                <img src="https://i.scdn.co/image/ab67616d0000b2735d48e2f56d691f9a4e4b0bdf" alt="Capa de Another Brick in the Wall, Pt. 2" class="album-art">
+                <div class="music-info">
+                    <div class="music-title">Another Brick in the Wall, Pt. 2</div>
+                    <div class="music-author">Pink Floyd</div>
+                </div>
+            </div>
+        </a>
+        
+                </div>
+            </div>
+        </body>
+        </html>
+        
