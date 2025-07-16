@@ -1,8 +1,2 @@
-PLAYLIST "Sintaxe Quebrada" DURACAO_MAXIMA 90 min GENERO "Pop" ANO 2010 FAIXA_ETARIA LIVRE
-
-MUSICA "Bad Romance" AUTOR "Lady Gaga" DURACAO 5 min
-AUTOR "Britney Spears" MUSICA "Toxic" DURACAO 3 min  
-
-PLAYLIST "Segunda Playlist" DURACAO_MAXIMA 30 min    
-
-DESCRICAO "Descrição fora do lugar"                 
+PLAYLIST "Ordem Trocada" GENERO "MPB" DURACAO_MAXIMA 90 min ANO 2005 FAIXA_ETARIA 12
+MUSICA "Aquarela" AUTOR "Toquinho" DURACAO 4 min

@@ -1,6 +1,3 @@
-PLAYLIST "Playlist com Problemas" DURACAO_MAXIMA 60 min GENERO "Eletrônica" ANO 2021 FAIXA_ETARIA 12
-
-# Esta linha é um comentário inválido, pois o caractere '#' não é reconhecido.
-
-MUSICA "Around the World" AUTOR "Daft Punk" DURACAO 7 min
-MUSICA "Strobe" AUTOR "deadmau5" DURACAO 10 min
+PLAYLIST "Rock Clássico" DURACAO_MAXIMA 120 min GENERO "Rock" ANO 1980 FAIXA_ETARIA @ 
+DESCRICAO "Os maiores clássicos do rock."
+MUSICA "Bohemian Rhapsody" AUTOR "Queen" DURACAO 6 min
