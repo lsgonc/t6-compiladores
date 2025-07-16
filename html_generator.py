@@ -1,3 +1,5 @@
+from urllib.parse import quote_plus
+
 class HtmlCodeGenerator:
     """
     Gera uma página web HTML estática a partir dos dados de uma playlist.
@@ -28,9 +30,13 @@ class HtmlCodeGenerator:
                 padding: 20px;
             }
             h1 {
-                color: #1877f2; /* Azul inspirado em redes sociais */
+                color: #1877f2;
                 border-bottom: 2px solid #ddd;
                 padding-bottom: 10px;
+            }
+            a {
+                text-decoration: none;
+                color: inherit;      
             }
             .description {
                 color: #606770;
@@ -57,8 +63,8 @@ class HtmlCodeGenerator:
             }
             .album-art {
                 width: 100%;
-                height: 200px; /* Altura fixa para alinhar a grade */
-                object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+                height: 200px; 
+                object-fit: cover; 
                 display: block;
             }
             .placeholder-art {
@@ -73,7 +79,7 @@ class HtmlCodeGenerator:
                 font-weight: bold;
             }
             .music-info {
-                padding: 10px;
+                padding: 16px;
             }
             .music-title {
                 font-weight: bold;
@@ -81,6 +87,7 @@ class HtmlCodeGenerator:
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                margin-bottom: 6px;
             }
             .music-author {
                 color: #606770;
@@ -95,21 +102,27 @@ class HtmlCodeGenerator:
         author = musica.get("author", "Autor Desconhecido")
         image_source = musica.get("image_source")
 
+        # CONSTRUIR A URL DE BUSCA DO YOUTUBE
+        search_term = f"{author} {title}"
+        encoded_search_term = quote_plus(search_term)
+        youtube_search_url = f"https://www.youtube.com/results?search_query={encoded_search_term}"
+
         # Define o conteúdo da imagem: ou a capa ou um placeholder
         if image_source:
             art_html = f'<img src="{image_source}" alt="Capa de {title}" class="album-art">'
         else:
             art_html = '<div class="placeholder-art">?</div>'
         
-        # O card não tem link, mas tem um título completo para acessibilidade
         return f"""
-        <div class="music-card" title="{author} - {title}">
-            {art_html}
-            <div class="music-info">
-                <div class="music-title">{title}</div>
-                <div class="music-author">{author}</div>
+        <a href="{youtube_search_url}" target="_blank" rel="noopener noreferrer" class="music-card-link">
+            <div class="music-card" title="{author} - {title}">
+                {art_html}
+                <div class="music-info">
+                    <div class="music-title">{title}</div>
+                    <div class="music-author">{author}</div>
+                </div>
             </div>
-        </div>
+        </a>
         """
 
     def generate_html(self):
