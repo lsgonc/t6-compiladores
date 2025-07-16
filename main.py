@@ -1,3 +1,4 @@
+from lark import Lark, UnexpectedToken, UnexpectedInput, UnexpectedCharacters
 from parser import create_playlist_parser
 from transformer import PlaylistTransformer
 from html_generator import HtmlCodeGenerator
@@ -58,11 +59,18 @@ def compile_playlist(input_string, source_filename="playlist"):
         print(f"Sucesso: Página da web gerada em '{output_filename}'")
         print("Abra este arquivo em seu navegador para ver o resultado!")
 
+    except UnexpectedToken as e:
+        print(f"❌ Erro de token inesperado na linha {e.line}, coluna {e.column}, token '{e.token}'")
+    except UnexpectedCharacters as e:
+        print(f"❌ Caractere '{e.char}' inválido na linha {e.line}, coluna {e.column}")
+    except UnexpectedInput as e:
+        print(f"❌ Erro inesperado de entrada")
+    
     except Exception as e:
         # Captura erros sintáticos ou de execução
         print("\n❌ Erro na Compilação")
         print(f"Erro: {e}")
-        return None, [str(e)]
+    return
 
 # Execução direta do script
 if __name__ == "__main__":
