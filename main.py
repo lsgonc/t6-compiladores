@@ -37,7 +37,7 @@ def compile_playlist(input_string):
         else:
             # Sucesso: imprime os dados finais em formato JSON legível
             print("\n✅ Compilação Concluída com Sucesso!")
-            print("Dados da Playlist Gerados:")
+            print("Dados da Playlist Gerados: \n")
             
             try:
                 # Tenta serializar e imprimir os dados

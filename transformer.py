@@ -65,19 +65,21 @@ class PlaylistTransformer(Transformer):
     def descricao(self, text):
         # A descrição é uma string simples, já processada no terminal ESCAPED_STRING
         return text
-
-    def idade(self, age):
-        # Retorna a idade (int) se for um token
-        if isinstance(age, Token):
-            return age.value
-        return age
+    
+    def faixa_etaria(self, valor):
+        if isinstance(valor, Token):
+            # Se for um Token, seu valor é "LIVRE". Retornamos a string.
+            return valor.value
+        else:
+            # Caso contrário, já é o inteiro que queremos.
+            return valor
 
     def musicas(self, *musica_list):
         # Coleta a lista de músicas (cada uma já transformada em dicionário)
         return list(musica_list)
 
     def musica(self, title, author, duration):
-        
+
         # === Validações Semânticas da Música ===
         # Verifica se a duração da música é positiva
         if duration <= 0:
