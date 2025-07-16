@@ -1,0 +1,4 @@
+PLAYLIST "Grunge Repetido" DURACAO_MAXIMA 40 min GENERO "Grunge" ANO 1991 FAIXA_ETARIA 16
+    MUSICA "Smells Like Teen Spirit" AUTOR "Nirvana" DURACAO 5 min
+    MUSICA "Come As You Are" AUTOR "Nirvana" DURACAO 4 min
+    MUSICA "Come As You Are" AUTOR "Nirvana" DURACAO 4 min

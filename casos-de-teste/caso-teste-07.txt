@@ -1,0 +1,2 @@
+PLAYLIST "Indie para Maiores?" DURACAO_MAXIMA 45 min GENERO "Indie" ANO 2022 FAIXA_ETARIA 19
+    MUSICA "The Adults Are Talking" AUTOR "The Strokes" DURACAO 5 min

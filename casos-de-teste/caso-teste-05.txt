@@ -1,0 +1,2 @@
+PLAYLIST "Rock Clássico com Duração Zero" DURACAO_MAXIMA 0 min GENERO "Rock" ANO 2023 FAIXA_ETARIA LIVRE
+    MUSICA "Stairway to Heaven" AUTOR "Led Zeppelin" DURACAO 8 min

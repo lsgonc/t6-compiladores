@@ -1,0 +1,2 @@
+PLAYLIST "Hits do Futuro" DURACAO_MAXIMA 120 min GENERO "Cyberfunk" ANO 2026 FAIXA_ETARIA 16
+    MUSICA "Canção de 2026" AUTOR "Viajante do Tempo" DURACAO 4 min
