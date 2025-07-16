@@ -1,9 +1,11 @@
 from parser import create_playlist_parser
 from transformer import PlaylistTransformer
+from html_generator import HtmlCodeGenerator
 import sys
-import json  # Para saída formatada em JSON
+import os
+import json
 
-def compile_playlist(input_string):
+def compile_playlist(input_string, source_filename="playlist"):
     """
     Compila a string de entrada da playlist, realizando:
     1. Análise sintática (estrutura da linguagem)
@@ -35,24 +37,26 @@ def compile_playlist(input_string):
             for error in transformer.errors:
                 print(f"- {error}")
             return None, transformer.errors
-        else:
-            # Sucesso: imprime os dados finais em formato JSON legível
-            print("\n✅ Compilação Concluída com Sucesso!")
-            print("Dados da Playlist Gerados: \n")
-            
-            try:
-                # Tenta serializar e imprimir os dados
-                json_output = json.dumps(playlist_data, indent=4, ensure_ascii=False)
-                print(json_output)
-                
-                return playlist_data, None
+        
+        # FASE DE GERAÇÃO DE CÓDIGO
+        print("\n✅ Compilação Concluída com Sucesso!")
 
-            except TypeError as json_error:
-                print("\n❌ Erro ao gerar a saída JSON")
-                print(f"Detalhe do erro: {json_error}")
-                print(playlist_data)
-                
-                return playlist_data, [f"Erro de serialização JSON: {json_error}"]
+        # 1. Instancia o gerador com os dados da playlist
+        generator = HtmlCodeGenerator(playlist_data)
+        
+        # 2. Gera o conteúdo HTML
+        html_content = generator.generate_html()
+
+        # 3. Define o nome do arquivo de saída
+        # Ex: se o entrada for 'minha_playlist.pldef', a saída será 'minha_playlist.html'
+        output_filename = os.path.splitext(source_filename)[0] + ".html"
+        
+        # 4. Escreve o arquivo HTML
+        with open(output_filename, "w", encoding="utf-8") as f:
+            f.write(html_content)
+
+        print(f"Sucesso: Página da web gerada em '{output_filename}'")
+        print("Abra este arquivo em seu navegador para ver o resultado!")
 
     except Exception as e:
         # Captura erros sintáticos ou de execução
@@ -66,6 +70,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         # Pega o nome do arquivo do primeiro argumento (índice 1)
         filepath = sys.argv[1]
+        html = sys.argv[2] if len(sys.argv) > 2 else "playlist"
 
         try:
             with open(filepath, 'r', encoding='utf-8') as f:
@@ -73,7 +78,7 @@ if __name__ == "__main__":
                 input_code = f.read()
             
             # Chama o compilador com o conteúdo do arquivo
-            compile_playlist(input_code)
+            compile_playlist(input_code, source_filename=html)
 
         except FileNotFoundError:
             print(f"❌ Erro: Arquivo não encontrado em '{filepath}'")
