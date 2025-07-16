@@ -1,4 +1,5 @@
 from lark import Transformer, v_args, Token
+from urllib.parse import urlparse
 
 @v_args(inline=True) 
 class PlaylistTransformer(Transformer):
@@ -59,6 +60,51 @@ class PlaylistTransformer(Transformer):
             self.errors.append(
                 f"Erro Semântico: Duração total das músicas ({self.current_playlist_data['total_duration']} min) excede a duração máxima da playlist '{name}' ({max_duration} min)."
             )
+
+        # Valida se o nome da playlist é válido
+        if not name.strip():
+            self.errors.append(
+                "Erro Semântico: O nome da playlist não pode ser vazio ou conter apenas espaços."
+            )
+
+        # Valida o tamanho das descrições
+        if description and len(description) > 500:
+            self.errors.append(
+                f"Aviso Semântico: A descrição da playlist '{name}' é muito longa ({len(description)} caracteres). Considere resumi-la."
+            )
+
+        # Validação de duplicidade de músicas
+        seen_songs = set()
+        for musica in musicas:
+            # Cria um identificador único para a música (título e autor em minúsculas)
+            song_id = (musica['title'].lower(), musica['author'].lower())
+            if song_id in seen_songs:
+                self.errors.append(
+                    f"Erro Semântico: A música '{musica['title']}' por '{musica['author']}' está duplicada na playlist '{name}'."
+                )
+            seen_songs.add(song_id)
+            
+        # Validação de formato de URL/Caminho da Capa (em cada música)
+        for musica in musicas:
+            image_source = musica.get('image_source')
+            if image_source: # Apenas se a capa foi fornecida
+                try:
+                    # Tenta analisar como uma URL
+                    result = urlparse(image_source)
+                    # Uma URL válida deve ter um 'scheme' (http, https) e um 'netloc' (o domínio)
+                    is_url = all([result.scheme, result.netloc])
+                    # Um caminho de arquivo comum não terá 'scheme' ou 'netloc'
+                    is_path = not result.scheme and not result.netloc
+
+                    if not is_url and not is_path:
+                        # Se não for nem uma URL bem formada nem um caminho simples, pode estar errado.
+                        self.errors.append(
+                            f"Aviso Semântico: A capa '{image_source}' para a música '{musica['title']}' não parece ser uma URL válida ou um caminho de arquivo."
+                        )
+                except ValueError:
+                    self.errors.append(
+                        f"Aviso Semântico: Formato de capa inválido para a música '{musica['title']}'."
+                    )
 
         return self.current_playlist_data
 
