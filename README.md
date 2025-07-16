@@ -61,4 +61,4 @@ O projeto também inclui arquivos contendo casos de teste utilizados para valida
 git clone (https://github.com/lsgonc/t6-compiladores.git)
 cd t6-compiladores
 pip install -r requirements.txt
-python main.py casos-de-teste/caso-teste-01.txt
+python main.py casos-de-teste/caso-teste-01.txt nome-da-playlist
