@@ -1,16 +1,27 @@
 start: playlist
 
+// Define a estrutura principal de uma playlist
 playlist: "PLAYLIST" ESCAPED_STRING "DURACAO_MAXIMA" INT "min" "GENERO" ESCAPED_STRING "ANO" INT "FAIXA_ETARIA" faixa_etaria descricao? musicas
 
+// Campo opcional que descreve a playlist
 descricao: "DESCRICAO" ESCAPED_STRING
 
-faixa_etaria: "LIVRE" | INT    -> idade
+// Define a faixa etária da playlist: pode ser "LIVRE" ou um número inteiro (idade mínima)
+faixa_etaria: LIVRE_TOKEN | INT
 
+// Lista de músicas, sendo obrigatório ter pelo menos uma
 musicas: (musica)+
 
+// Define a estrutura de uma música na playlist
 musica: "MUSICA" ESCAPED_STRING "AUTOR" ESCAPED_STRING "DURACAO" INT "min"
 
+// Define o token LIVRE_TOKEN explicitamente
+LIVRE_TOKEN: "LIVRE"
+
+// Importa regras léxicas comuns do Lark
 %import common.ESCAPED_STRING
 %import common.INT
 %import common.WS
+
+// Ignora espaços em branco entre os tokens
 %ignore WS

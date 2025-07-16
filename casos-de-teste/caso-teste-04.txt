@@ -1,4 +1,3 @@
-PLAYLIST "Erros Lógicos" DURACAO_MAXIMA 10 min GENERO "Variado" ANO 2099 FAIXA_ETARIA 25
-
-MUSICA "Música Super Longa" AUTOR "Compositor A" DURACAO 11 min
-MUSICA "Música com Duração Negativa" AUTOR "Compositor B" DURACAO -5 min
+PLAYLIST "Curta Demais" DURACAO_MAXIMA 5 min GENERO "Pop Punk" ANO 2002 FAIXA_ETARIA 14
+MUSICA "All The Small Things" AUTOR "Blink-182" DURACAO 4 min
+MUSICA "The Middle" AUTOR "Jimmy Eat World" DURACAO 4 min

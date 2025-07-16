@@ -1,10 +1,10 @@
 from lark import Lark
 
 def create_playlist_parser():
-    """Cria e retorna uma instância do parser Lark para a gramática da playlist."""
+    """Cria e retorna uma instância do parser Lark para a gramática da playlist"""
     with open('gramatica.lark', 'r') as f:
         grammar = f.read()
-    # Usamos propagate_positions=False pois não precisamos das posições dos tokens para este compilador simples.
+    # Usamos propagate_positions=False pois não precisamos das posições dos tokens para este compilador simples
     return Lark(grammar, start='start', parser='lalr', propagate_positions=False)
 
 if __name__ == "__main__":
@@ -16,6 +16,7 @@ if __name__ == "__main__":
     MUSICA "Stairway to Heaven" AUTOR "Led Zeppelin" DURACAO 8 min
     MUSICA "Bohemian Rhapsody" AUTOR "Queen" DURACAO 6 min
     """
+
     try:
         tree = parser.parse(test_input)
         print("Parse Tree gerada com sucesso:")
