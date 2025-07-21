@@ -1,3 +1,16 @@
+Ciência da Computação, UFSCar - 2025
+
+**Professor:** Daniel Lucrédio
+
+Trabalho desenvolvido por:
+| Nome                        | RA     |
+|-----------------------------|--------|
+|     Enzo Youji Murayama     | 813606 |
+| Gabriel Henrique Alves Zago | 811640 |
+|   Lucas Sciarra Gonçalves   | 811948 |
+
+<br>
+
 # Playlist Language Compiler
 
 Linguagem criada como parte do trabalho final da disciplina de Compiladores, destinada à definição e validação de playlists musicais com suporte a metadados estruturados. O vídeo de apresentação pode ser acessado [aqui](https://drive.google.com/drive/folders/1Jbiocl07ls-4l0yMbxOjlXyVmdR70KRa?usp=sharing): 
